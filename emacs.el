@@ -70,6 +70,11 @@
 
    ;; make line numbers relative to cursor
    linum-relative
+
+   ;; git
+   ;; http://www.emacswiki.org/emacs/Magit
+   ;; http://www.masteringemacs.org/article/introduction-magit-emacs-mode-git
+   magit
    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; auto complete
