@@ -83,6 +83,12 @@
    ;; http://www.emacswiki.org/emacs/Magit
    ;; http://www.masteringemacs.org/article/introduction-magit-emacs-mode-git
    magit
+   ;; show changes in fringe
+   ;; https://github.com/syohex/emacs-git-gutter-fringe
+   git-gutter-fringe
+   ;; work in terminal
+   ;; https://github.com/nonsequitur/git-gutter-fringe-plus
+   git-gutter-fringe+
 
    ;; markdown
    ;; http://jblevins.org/projects/markdown-mode/
@@ -145,6 +151,16 @@
 (require 'flycheck-color-mode-line)
 (eval-after-load "flycheck"
   '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; git
+(when (window-system)
+  (when (require 'git-gutter-fringe nil t)
+    (global-git-gutter-mode 1)
+    (setq-default indicate-buffer-boundaries 'left)
+    (setq-default indicate-empty-lines 1)))
+
+(when (not (window-system))
+  (require git-gutter-fringe+))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; hungry delte
 (global-hungry-delete-mode)
