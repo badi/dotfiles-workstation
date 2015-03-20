@@ -75,6 +75,10 @@
    ;; http://www.emacswiki.org/emacs/Magit
    ;; http://www.masteringemacs.org/article/introduction-magit-emacs-mode-git
    magit
+
+   ;; markdown
+   ;; http://jblevins.org/projects/markdown-mode/
+   markdown-mode
    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; auto complete
@@ -120,6 +124,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; linum relative
 (require 'linum-relative)
 (global-set-key (kbd "C-x C-m C-l") 'linum-relative-toggle)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; markdown
+(autoload 'markdown-mode "markdown-mode")
+(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; user interface settings
