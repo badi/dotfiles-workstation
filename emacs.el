@@ -67,6 +67,9 @@
 
    ;; vertial ido matches
    ido-vertical-mode
+
+   ;; make line numbers relative to cursor
+   linum-relative
    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; auto complete
@@ -108,6 +111,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; hungry delte
 (global-hungry-delete-mode)
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; linum relative
+(require 'linum-relative)
+(global-set-key (kbd "C-x C-m C-l") 'linum-relative-toggle)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; user interface settings
