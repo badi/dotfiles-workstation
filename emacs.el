@@ -1,4 +1,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; additional useful functions and variables
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun badi/package-install (package)
+  "Install a package if it is not present already"
+  (unless (package-installed-p package)
+    (package-install package)))
+
+(defun badi/package-install-list (package-list)
+  "Install a list of packages if necessary"
+  (dolist (package package-list)
+    (badi/package-install package)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; user interface settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -53,7 +67,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; themes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(package-install 'atom-dark-theme)
+(badi/package-install 'atom-dark-theme)
 (load-theme 'atom-dark t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -68,8 +82,9 @@
 ;; sphinx-doc: autoinsert sphinx-doc docstrings
 ;;             (C-c M-d at function def)
 (setq python-ide-package-list '(elpy flymake sphinx-doc))
-(dolist (package python-ide-package-list)
-  (package-install package))
+(badi/package-install-list '(elpy
+			     flymake
+			     sphinx-doc))
 
 (elpy-enable)
 (add-hook 'python-mode-hook (lambda ()
