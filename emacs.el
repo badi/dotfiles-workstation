@@ -60,6 +60,10 @@
    ;; https://github.com/ankurdave/color-identifiers-mode
    color-identifiers-mode
 
+   ;; expande syntactic regions
+   ;; https://github.com/magnars/expand-region.el
+   expand-region
+
    ;; flexible string matching
    flx
    flx-ido
@@ -125,6 +129,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; color identifiers
 ;; globally enable color-identifiers-mode
 (add-hook 'after-init-hook 'global-color-identifiers-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; expand region
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ido
 ;; Interactively do things
@@ -246,6 +254,7 @@
 (hl-line-mode t)
 (ido-mode)
 (subword-mode)
+(pending-delete-mode t)
 
 ;;; use versioned backups, don't clobber symlinks, don't litter fs tree
 (setq
