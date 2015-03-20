@@ -12,6 +12,15 @@
   (dolist (package package-list)
     (badi/package-install package)))
 
+(defun badi/package/refresh-contents ()
+  "Refresh the package contents if necessary"
+  (unless package-archive-contents
+    (package-refresh-contents)))
+
+(defun badi/package/emacs-compat-fix ()
+  "Add gnu packages when emacs is v23 or less for libs like cl-lib"
+  (when (< emacs-major-version 24)
+    (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; setup package repositories
@@ -22,13 +31,9 @@
              '("melpa" . "http://melpa.org/packages/")
 	     '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 
-(when (< emacs-major-version 24)
-  ;; For important compatibility libraries like cl-lib
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
-
+(badi/package/emacs-compat-fix)
 (package-initialize)
-(unless package-archive-contents
-  (package-refresh-contents))
+(badi/package/refresh-contents)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
