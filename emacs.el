@@ -49,13 +49,56 @@
    ;; Color variables differently
    ;; https://github.com/ankurdave/color-identifiers-mode
    color-identifiers-mode
+
+   ;; flexible string matching
+   flx
+   flx-ido
+   ido-vertical-mode
+
+   ;; on-the-fly checking
+   flycheck
+   ;; colors the mode line according to the Flycheck state
+   ;; https://github.com/flycheck/flycheck-color-mode-line
+   flycheck-color-mode-line
+
+   
    ))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; auto complete
 ;; globally enable auto-complete
 (global-auto-complete-mode t)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; color identifiers
 ;; globally enable color-identifiers-mode
 (add-hook 'after-init-hook 'global-color-identifiers-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ido
+;; Interactively do things
+(ido-mode 1)
+(require 'flx-ido) ; flexible string matching
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(flx-ido-mode 1)
+
+					; use ido vertically (easier to read)
+(require 'ido-vertical-mode)
+(ido-vertical-mode 1)
+(setq ido-vertical-define-keys 'C-n-C-p-up-and-down) ; for arrow keys
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; flx-ido
+
+(ido-mode t)
+(ido-everywhere t)
+(flx-ido-mode t)
+;; disable ido faces to see flx highlighting
+(setq ido-enable-flex-matching t)
+(setq ido-use-faces nil)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; flycheck
+(require 'flycheck-color-mode-line)
+(eval-after-load "flycheck"
+  '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; user interface settings
