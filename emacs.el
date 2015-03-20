@@ -255,6 +255,7 @@
 (ido-mode)
 (subword-mode)
 (pending-delete-mode t)
+(transient-mark-mode t)
 
 ;;; use versioned backups, don't clobber symlinks, don't litter fs tree
 (setq
