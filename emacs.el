@@ -53,7 +53,6 @@
    ;; flexible string matching
    flx
    flx-ido
-   ido-vertical-mode
 
    ;; on-the-fly checking
    flycheck
@@ -65,6 +64,9 @@
    ;; delete all whitespace in the direction you are deleting
    ;; https://github.com/nflath/hungry-delete
    hungry-delete
+
+   ;; vertial ido matches
+   ido-vertical-mode
    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; auto complete
