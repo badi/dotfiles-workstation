@@ -37,7 +37,7 @@
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/")
-	     '("elpy" . "http://jorgenschaefer.github.io/packages/"))
+             '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 
 (badi/package/emacs-compat-fix)
 (package-initialize)
@@ -132,7 +132,7 @@
 (setq ido-everywhere t)
 (flx-ido-mode 1)
 
-					; use ido vertically (easier to read)
+;; use ido vertically (easier to read)
 (require 'ido-vertical-mode)
 (ido-vertical-mode 1)
 (setq ido-vertical-define-keys 'C-n-C-p-up-and-down) ; for arrow keys
@@ -228,7 +228,7 @@
 
 ;; only start the server if it is not yet running
 (if (and (fboundp 'server-running-p)
-	 (not (server-running-p)))
+         (not (server-running-p)))
     (server-start))
 
 (unless window-system (menu-bar-mode -1))
@@ -273,11 +273,11 @@
 ;;             (C-c M-d at function def)
 (setq python-ide-package-list '(elpy flymake sphinx-doc))
 (badi/package-install-list '(elpy
-			     flymake
-			     sphinx-doc))
+                             flymake
+                             sphinx-doc))
 
 (elpy-enable)
 (add-hook 'python-mode-hook (lambda ()
-			      (require 'sphinx-doc)
-			      (sphinx-doc-mode t)))
+                              (require 'sphinx-doc)
+                              (sphinx-doc-mode t)))
 
