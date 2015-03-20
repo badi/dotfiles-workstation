@@ -37,6 +37,27 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; install some useful packages
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(badi/package-install-list
+ '(
+   ;; auto-complete mode
+   ;; http://emacswiki.org/emacs/AutoComplete
+   auto-complete
+
+   ;; Color variables differently
+   ;; https://github.com/ankurdave/color-identifiers-mode
+   color-identifiers-mode
+   ))
+
+;; globally enable auto-complete
+(global-auto-complete-mode t)
+
+;; globally enable color-identifiers-mode
+(add-hook 'after-init-hook 'global-color-identifiers-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; user interface settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
