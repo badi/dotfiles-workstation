@@ -208,7 +208,9 @@
     (setq-default indicate-empty-lines 1)))
 
 (when (not (window-system))
-  (require git-gutter-fringe+))
+  (require 'git-gutter-fringe+)
+  (global-git-gutter+-mode 1)
+  (git-gutter+-toggle-fringe))
 
 (global-set-key (kbd "C-c C-g") 'magit-status)
 
