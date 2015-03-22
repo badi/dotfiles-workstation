@@ -12,15 +12,44 @@
   (dolist (package package-list)
     (badi/package-install package)))
 
+(defun badi/joindirs (root &rest dirs)
+  "Joins a series of directories together, like Python's os.path.join,
+  (dotemacs-joindirs \"/tmp\" \"a\" \"b\" \"c\") => /tmp/a/b/c"
+  (if (not dirs)
+      root
+    (apply 'badi/joindirs
+           (expand-file-name (car dirs) root)
+           (cdr dirs))))
+
 (defun badi/package/refresh-contents ()
   "Refresh the package contents if necessary"
-  (unless package-archive-contents
-    (package-refresh-contents)))
+  (let ((package/archive-file-exists-p (lambda (name)
+                                         (let* ((archive (badi/joindirs package-user-dir
+                                                                        "archives"
+                                                                        name
+                                                                        "archive-contents")))
+                                           (message "[badi/package/archive-file-exists-p] checking %s" archive)
+                                           (file-exists-p archive)))))
+    (dolist (package package-archives)
+      (unless (funcall package/archive-file-exists-p (car package))
+        (package-refresh-contents)))))
 
 (defun badi/package/emacs-compat-fix ()
   "Add gnu packages when emacs is v23 or less for libs like cl-lib"
   (when (< emacs-major-version 24)
     (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))))
+
+(defun badi/switch-system-name (names-and-bodies)
+  "Load overrides based on hostname
+   NAMES-AND-BODEIS is a list where individual elements have the form
+   (\"hostname\" . (sexpr)), where (sexpr) will be evaluated when the
+   current hostname matches"
+  (dolist (name-body names-and-bodies)
+    (let ((name (car name-body))
+	  (body (cdr name-body)))
+      (when (string= system-name name)
+	(message "[switch-system-name] found %s running %s" name body)
+	(eval body)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; modify editing
@@ -301,3 +330,9 @@
                               (require 'sphinx-doc)
                               (sphinx-doc-mode t)))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; load specific overrides based on system type
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  
+(badi/switch-system-name '(("lorien" . (set-face-attribute 'default nil :height 120))))
