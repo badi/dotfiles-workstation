@@ -35,11 +35,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'package)
-(add-to-list 'package-archives
-             '(("melpa" . "http://melpa.org/packages/")
-               ("elpy" . "http://jorgenschaefer.github.io/packages/")
-               ("marmalade" . "http://marmalade-repo.org/packages/")))
-
+(dolist (archive
+         '(
+           ("melpa" . "http://melpa.org/packages/")
+           ("elpy" . "http://jorgenschaefer.github.io/packages/")
+           ("marmalade" . "http://marmalade-repo.org/packages/")
+           ))
+  (add-to-list 'package-archives archive))
 
 (badi/package/emacs-compat-fix)
 (package-initialize)
