@@ -214,6 +214,21 @@
 
 (global-set-key (kbd "C-c C-g") 'magit-status)
 
+;; magit-status full-screen
+;; http://whattheemacsd.com/setup-magit.el-01.html
+(defadvice magit-status (around magit-fullscreen activate)
+  (window-configuration-to-register :magit-fullscreen)
+  ad-do-it
+  (delete-other-windows))
+
+
+;; pass -v to commit so we can see the staged hunk
+;; http://emacs.stackexchange.com/questions/3893
+(advice-add #'magit-key-mode-popup-committing :after
+            (lambda ()
+              (magit-key-mode-toggle-option (quote committing) "--verbose")))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; hungry delete
 (global-hungry-delete-mode)
 
