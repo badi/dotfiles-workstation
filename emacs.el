@@ -210,7 +210,9 @@
 (when (not (window-system))
   (require git-gutter-fringe+))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; hungry delte
+(global-set-key (kbd "C-c C-g") 'magit-status)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; hungry delete
 (global-hungry-delete-mode)
 
 
