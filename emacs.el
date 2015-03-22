@@ -23,13 +23,14 @@
 
 (defun badi/package/refresh-contents ()
   "Refresh the package contents if necessary"
-  (let ((package/archive-file-exists-p (lambda (name)
-                                         (let* ((archive (badi/joindirs package-user-dir
-                                                                        "archives"
-                                                                        name
-                                                                        "archive-contents")))
-                                           (message "[badi/package/archive-file-exists-p] checking %s" archive)
-                                           (file-exists-p archive)))))
+  (let ((package/archive-file-exists-p
+         (lambda (name)
+           (let* ((archive (badi/joindirs package-user-dir
+                                          "archives"
+                                          name
+                                          "archive-contents")))
+             (message "[badi/package/archive-file-exists-p] checking %s" archive)
+             (file-exists-p archive)))))
     (dolist (package package-archives)
       (unless (funcall package/archive-file-exists-p (car package))
         (package-refresh-contents)))))
