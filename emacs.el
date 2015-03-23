@@ -176,8 +176,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; ido
 ;; Interactively do things
 (ido-mode 1)
+(ido-everywhere t)
 (require 'flx-ido) ; flexible string matching
+(flx-ido-mode t)
+;; disable ido faces to see flx highlighting
 (setq ido-enable-flex-matching t)
+(setq ido-use-faces nil)
 (setq ido-everywhere t)
 (flx-ido-mode 1)
 
@@ -185,15 +189,6 @@
 (require 'ido-vertical-mode)
 (ido-vertical-mode 1)
 (setq ido-vertical-define-keys 'C-n-C-p-up-and-down) ; for arrow keys
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; flx-ido
-
-(ido-mode t)
-(ido-everywhere t)
-(flx-ido-mode t)
-;; disable ido faces to see flx highlighting
-(setq ido-enable-flex-matching t)
-(setq ido-use-faces nil)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; flycheck
@@ -312,7 +307,6 @@
 (global-linum-mode t)
 (show-paren-mode t)
 (hl-line-mode t)
-(ido-mode)
 (subword-mode)
 (pending-delete-mode t)
 (transient-mark-mode t)
