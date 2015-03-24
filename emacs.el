@@ -98,6 +98,10 @@
    ;; https://github.com/ankurdave/color-identifiers-mode
    color-identifiers-mode
 
+   ;; csv-mode for editing csv files
+   ;; http://emacswiki.org/emacs/CsvMode
+   csv-mode
+
    ;; expande syntactic regions
    ;; https://github.com/magnars/expand-region.el
    expand-region
@@ -170,6 +174,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; color identifiers
 ;; globally enable color-identifiers-mode
 (add-hook 'after-init-hook 'global-color-identifiers-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; csv mode
+(add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; expand region
 (require 'expand-region)
