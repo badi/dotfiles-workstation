@@ -112,6 +112,9 @@
    ;; https://github.com/flycheck/flycheck-color-mode-line
    flycheck-color-mode-line
 
+   ;; haskell-mode (since no ghc)
+   haskell-mode
+
    ;; hungry delete
    ;; delete all whitespace in the direction you are deleting
    ;; https://github.com/nflath/hungry-delete
