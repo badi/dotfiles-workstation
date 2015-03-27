@@ -292,10 +292,10 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; visual regexp
 (require 'visual-regexp-steroids)
-(global-set-key (kbd "C-s")   'vr/isearch-forward)
-(global-set-key (kbd "C-r")   'vr/isearch-backward)
-(global-set-key (kbd "C-c r") 'vr/replace)
-(global-set-key (kbd "C-c q") 'vr/query-replace)
+(global-set-key (kbd "C-s")   'isearch-forward)
+(global-set-key (kbd "C-r")   'isearch-backward)
+(global-set-key (kbd "C-c s") 'vr/isearch-forward)
+(global-set-key (kbd "C-c r") 'vr/isearch-backward)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; yasnippet
