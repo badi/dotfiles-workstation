@@ -40,6 +40,13 @@
   (when (< emacs-major-version 24)
     (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))))
 
+(defun badi/package/update ()
+  "Updated installed packages"
+  (interactive)
+  (package-list-packages)
+  (package-menu-mark-upgrades)
+  (package-menu-execute))
+
 (defun badi/switch-system-name (names-and-bodies)
   "Load overrides based on hostname
    NAMES-AND-BODEIS is a list where individual elements have the form
