@@ -40,6 +40,13 @@
   (when (< emacs-major-version 24)
     (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))))
 
+(defun badi/package/update ()
+  "Updated installed packages"
+  (interactive)
+  (package-list-packages)
+  (package-menu-mark-upgrades)
+  (package-menu-execute))
+
 (defun badi/switch-system-name (names-and-bodies)
   "Load overrides based on hostname
    NAMES-AND-BODEIS is a list where individual elements have the form
@@ -288,10 +295,10 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; visual regexp
 (require 'visual-regexp-steroids)
-(global-set-key (kbd "C-s")   'vr/isearch-forward)
-(global-set-key (kbd "C-r")   'vr/isearch-backward)
-(global-set-key (kbd "C-c r") 'vr/replace)
-(global-set-key (kbd "C-c q") 'vr/query-replace)
+(global-set-key (kbd "C-s")   'isearch-forward)
+(global-set-key (kbd "C-r")   'isearch-backward)
+(global-set-key (kbd "C-c s") 'vr/isearch-forward)
+(global-set-key (kbd "C-c r") 'vr/isearch-backward)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; yasnippet
