@@ -55,7 +55,7 @@
   (dolist (name-body names-and-bodies)
     (let ((name (car name-body))
 	  (body (cdr name-body)))
-      (when (string= system-name name)
+      (when (string-prefix-p name system-name)
 	(message "[switch-system-name] found %s running %s" name body)
 	(eval body)))))
 
