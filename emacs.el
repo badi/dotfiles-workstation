@@ -309,8 +309,6 @@
 ;; user interface settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(set-face-attribute 'default nil :height 80)
-
 ;; only start the server if it is not yet running
 (if (and (fboundp 'server-running-p)
          (not (server-running-p)))
@@ -375,5 +373,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; load specific overrides based on system type
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  
+
+(badi/switch-system-name '(("sulimo" . (set-face-attribute 'default nil :height 80))))
 (badi/switch-system-name '(("lorien" . (set-face-attribute 'default nil :height 120))))
