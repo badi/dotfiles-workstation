@@ -55,7 +55,7 @@
   (dolist (name-body names-and-bodies)
     (let ((name (car name-body))
 	  (body (cdr name-body)))
-      (when (string= system-name name)
+      (when (string-prefix-p name system-name)
 	(message "[switch-system-name] found %s running %s" name body)
 	(eval body)))))
 
@@ -93,7 +93,10 @@
 ;; TODO projectile https://github.com/bbatsov/projectile
 ;; TODO helm http://tuhdo.github.io/helm-intro.html
 ;; TODO flyspell http://www.emacswiki.org/emacs/FlySpellx
-;; TODO haskell-mode or shm (structured-haskell-mode)
+;; TODO auctex
+;;      - installed, configured
+;;      - autocompletion (company-mode is recommended)
+ 
 
 (badi/package-install-list
  '(
@@ -134,8 +137,9 @@
    ;; vertial ido matches
    ido-vertical-mode
 
-   ;; make line numbers relative to cursor
-   linum-relative
+   ;; auctex
+   auctex
+   auto-complete-auctex
 
    ;; git
    ;; http://www.emacswiki.org/emacs/Magit
@@ -245,9 +249,18 @@
 (global-hungry-delete-mode)
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; linum relative
-(require 'linum-relative)
-(global-set-key (kbd "C-x C-m C-l") 'linum-relative-toggle)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Latex
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
+(add-hook 'LaTeX-mode-hook 'visual-line-mode)
+(add-hook 'LaTeX-mode-hook 'flyspell-mode)
+(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(add-hook 'LaTeX-mode-hook 'auto-complete-mode)
+
+; compile to PDF
+(setq TeX-PDF-mode t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; markdown
 (autoload 'markdown-mode "markdown-mode")
