@@ -160,10 +160,6 @@
    ;; https://github.com/nonsequitur/smex
    smex
 
-   ;; better undo
-   ;; http://www.emacswiki.org/emacs/UndoTree
-   undo-tree
-
    ;; visual regexp (actual regex, not emacs-style)
    ;; note: this requires python
    ;; https://github.com/benma/visual-regexp-steroids.el/
@@ -278,20 +274,6 @@
 ;; the old M-x
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; undo tree
-(require 'undo-tree)
-(global-undo-tree-mode)
-
-;; ;; some useful key bindings
-;;   key             binding
-;; ---             -------
-
-;; C-x          Prefix Command
-;; ESC          Prefix Command
-;; C-_          undo-tree-undo
-;; C-/          undo-tree-undo
-;; C-?          undo-tree-redo
-;; C-x u        undo-tree-visualize
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; visual regexp
 (require 'visual-regexp-steroids)
