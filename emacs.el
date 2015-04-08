@@ -322,6 +322,10 @@
 (setq inhibit-startup-screen t)
 (setq initial-scratch-message nil)
 
+;; upcase/downcase regions is nice
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+
 (line-number-mode t)
 (column-number-mode t)
 (global-linum-mode t)
