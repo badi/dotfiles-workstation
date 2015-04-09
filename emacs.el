@@ -370,6 +370,8 @@
                               (sphinx-doc-mode t)))
 
 ;; configure nose for testing
+;; ;TODO: see elpy docs for more details: http://elpy.readthedocs.org/en/latest/ide.html#testing
+;; ;TODO: checkout tdd.el: https://github.com/jorgenschaefer/emacs-tdd/
 (setq elpy-test-runner 'elpy-test-nose-runner)
 (setq elpy-test-nose-runner-command '("nosetests" "--all-modules" "-s"))
 
