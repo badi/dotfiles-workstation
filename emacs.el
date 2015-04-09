@@ -369,6 +369,10 @@
                               (require 'sphinx-doc)
                               (sphinx-doc-mode t)))
 
+;; configure nose for testing
+(setq elpy-test-runner 'elpy-test-nose-runner)
+(setq elpy-test-nose-runner-command '("nosetests" "--all-modules" "-s"))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; load specific overrides based on system type
