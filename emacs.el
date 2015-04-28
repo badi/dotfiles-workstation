@@ -160,6 +160,10 @@
    ;;https://github.com/magnars/multiple-cursors.el
    multiple-cursors
 
+   ;; nix mode for nix expression files
+   ;; https://nixos.org
+   nix-mode
+
    ;; enhance M-x with IDO
    ;; https://github.com/nonsequitur/smex
    smex
@@ -275,6 +279,10 @@
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; nix mode
+(autoload 'nix-mode "nix-mode" "Major mode for editing Nix expressions." t)
+(push '("\\.nix\\'" . nix-mode) auto-mode-alist)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; smex
