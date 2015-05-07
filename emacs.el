@@ -55,7 +55,7 @@
   (dolist (name-body names-and-bodies)
     (let ((name (car name-body))
 	  (body (cdr name-body)))
-      (when (string= system-name name)
+      (when (string-prefix-p name system-name)
 	(message "[switch-system-name] found %s running %s" name body)
 	(eval body)))))
 
@@ -93,7 +93,10 @@
 ;; TODO projectile https://github.com/bbatsov/projectile
 ;; TODO helm http://tuhdo.github.io/helm-intro.html
 ;; TODO flyspell http://www.emacswiki.org/emacs/FlySpellx
-;; TODO haskell-mode or shm (structured-haskell-mode)
+;; TODO auctex
+;;      - installed, configured
+;;      - autocompletion (company-mode is recommended)
+ 
 
 (badi/package-install-list
  '(
@@ -134,8 +137,9 @@
    ;; vertial ido matches
    ido-vertical-mode
 
-   ;; make line numbers relative to cursor
-   linum-relative
+   ;; auctex
+   auctex
+   auto-complete-auctex
 
    ;; git
    ;; http://www.emacswiki.org/emacs/Magit
@@ -156,13 +160,13 @@
    ;;https://github.com/magnars/multiple-cursors.el
    multiple-cursors
 
+   ;; nix mode for nix expression files
+   ;; https://nixos.org
+   nix-mode
+
    ;; enhance M-x with IDO
    ;; https://github.com/nonsequitur/smex
    smex
-
-   ;; better undo
-   ;; http://www.emacswiki.org/emacs/UndoTree
-   undo-tree
 
    ;; visual regexp (actual regex, not emacs-style)
    ;; note: this requires python
@@ -172,11 +176,14 @@
    ;; snippets
    ;; https://github.com/capitaomorte/yasnippet
    yasnippet
+
+   ;; yaml editing
+   yaml-mode
    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; auto complete
 ;; globally enable auto-complete
-(global-auto-complete-mode t)
+;; (global-auto-complete-mode t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; color identifiers
 ;; globally enable color-identifiers-mode
@@ -246,9 +253,18 @@
 (global-hungry-delete-mode)
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; linum relative
-(require 'linum-relative)
-(global-set-key (kbd "C-x C-m C-l") 'linum-relative-toggle)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Latex
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
+(add-hook 'LaTeX-mode-hook 'visual-line-mode)
+(add-hook 'LaTeX-mode-hook 'flyspell-mode)
+(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(add-hook 'LaTeX-mode-hook 'auto-complete-mode)
+
+; compile to PDF
+(setq TeX-PDF-mode t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; markdown
 (autoload 'markdown-mode "markdown-mode")
@@ -264,6 +280,10 @@
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; nix mode
+(autoload 'nix-mode "nix-mode" "Major mode for editing Nix expressions." t)
+(push '("\\.nix\\'" . nix-mode) auto-mode-alist)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; smex
 (require 'smex)
@@ -275,20 +295,6 @@
 ;; the old M-x
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; undo tree
-(require 'undo-tree)
-(global-undo-tree-mode)
-
-;; ;; some useful key bindings
-;;   key             binding
-;; ---             -------
-
-;; C-x          Prefix Command
-;; ESC          Prefix Command
-;; C-_          undo-tree-undo
-;; C-/          undo-tree-undo
-;; C-?          undo-tree-redo
-;; C-x u        undo-tree-visualize
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; visual regexp
 (require 'visual-regexp-steroids)
@@ -302,11 +308,14 @@
 (require 'yasnippet)
 (yas-global-mode 1)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; yaml-mode
+(autoload 'yaml-mode "yaml-mode")
+(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; user interface settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(set-face-attribute 'default nil :height 80)
 
 ;; only start the server if it is not yet running
 (if (and (fboundp 'server-running-p)
@@ -314,10 +323,16 @@
     (server-start))
 
 (unless window-system (menu-bar-mode -1))
-(when window-system (tool-bar-mode -1))
+(when window-system
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1))
 
 (setq inhibit-startup-screen t)
 (setq initial-scratch-message nil)
+
+;; upcase/downcase regions is nice
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
 
 (line-number-mode t)
 (column-number-mode t)
@@ -364,6 +379,12 @@
                               (require 'sphinx-doc)
                               (sphinx-doc-mode t)))
 
+;; configure nose for testing
+;; ;TODO: see elpy docs for more details: http://elpy.readthedocs.org/en/latest/ide.html#testing
+;; ;TODO: checkout tdd.el: https://github.com/jorgenschaefer/emacs-tdd/
+(setq elpy-test-runner 'elpy-test-nose-runner)
+(setq elpy-test-nose-runner-command '("nosetests" "--all-modules" "-s"))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; org mode
@@ -392,5 +413,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; load specific overrides based on system type
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  
+
+(badi/switch-system-name '(("sulimo" . (set-face-attribute 'default nil :height 80))))
 (badi/switch-system-name '(("lorien" . (set-face-attribute 'default nil :height 120))))
