@@ -163,6 +163,10 @@
    ;;https://github.com/magnars/multiple-cursors.el
    multiple-cursors
 
+   ;; nix mode for nix expression files
+   ;; https://nixos.org
+   nix-mode
+
    ;; enhance M-x with IDO
    ;; https://github.com/nonsequitur/smex
    smex
@@ -285,6 +289,10 @@
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; nix mode
+(autoload 'nix-mode "nix-mode" "Major mode for editing Nix expressions." t)
+(push '("\\.nix\\'" . nix-mode) auto-mode-alist)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; smex
 (require 'smex)
@@ -324,7 +332,9 @@
     (server-start))
 
 (unless window-system (menu-bar-mode -1))
-(when window-system (tool-bar-mode -1))
+(when window-system
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1))
 
 (setq inhibit-startup-screen t)
 (setq initial-scratch-message nil)
@@ -383,6 +393,30 @@
 ;; ;TODO: checkout tdd.el: https://github.com/jorgenschaefer/emacs-tdd/
 (setq elpy-test-runner 'elpy-test-nose-runner)
 (setq elpy-test-nose-runner-command '("nosetests" "--all-modules" "-s"))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; org mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; automatically change entry to DONE when all children are DONE
+(defun badi/org/summary-todo (n-done n-not-done)
+  "Switch entry to DONE when all subentries are done, to TODO otherwise."
+  (let (org-log-done org-log-states)   ; turn off logging
+    (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+(add-hook 'org-after-todo-statistics-hook 'badi/org/summary-todo)
+
+(setq org-hide-leading-stars t)
+
+;; block changes to DONE that have incomplete dependencies
+(setq org-enforce-todo-dependencies t)
+(setq org-enforce-todo-checkbox-dependencies t)
+
+
+;; provide statistics
+(setq org-provide-todo-statistics t)
+(setq org-hierarchical-todo-statistics nil)
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
