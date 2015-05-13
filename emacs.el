@@ -141,6 +141,9 @@
    auctex
    auto-complete-auctex
 
+   ;; matlab
+   matlab-mode
+
    ;; git
    ;; http://www.emacswiki.org/emacs/Magit
    ;; http://www.masteringemacs.org/article/introduction-magit-emacs-mode-git
@@ -267,6 +270,12 @@
 (add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; matlab
+(autoload 'matlab-mode "matlab" "Matlab Editing  Mode" t)
+(add-to-list 'auto-mode-alist '("\\.m$" . matlab-mode))
+(setq matlab-indent-function t)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; multiple cursors
 (require 'multiple-cursors)
