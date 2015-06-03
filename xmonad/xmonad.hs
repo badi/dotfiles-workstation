@@ -18,6 +18,8 @@ import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
 
 
+myTerminal = "mate-terminal"
+
 myModMask = mod4Mask
 
 myLayout = smartBorders $ avoidStruts (
@@ -54,8 +56,9 @@ main = do
      let cfg = maybe desktopConfig desktop session
      xmonad $ cfg {
      	        modMask = myModMask
+              , terminal = myTerminal
 	      , layoutHook = myLayout
-              -- , startupHook = setWMName "LG3D"
+              , startupHook = setWMName "LG3D"
 	      , keys = myKeys <+> keys cfg
 	      }
 
